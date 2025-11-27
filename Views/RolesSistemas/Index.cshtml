@@ -1,0 +1,169 @@
+﻿@model IEnumerable<Proyecto.Models.RolesSistema>
+
+@{
+    ViewData["Title"] = "Listado de Roles del Sistema";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.8rem;
+        color: #fff;
+        margin-bottom: 20px;
+        font-weight: 800;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+        letter-spacing: 1px;
+    }
+
+    .school-card {
+        background: white;
+        border-radius: 25px;
+        padding: 25px;
+        box-shadow: 0px 6px 18px rgba(0,0,0,0.15);
+        border: 4px dashed #ff7a5a;
+        animation: pop 0.5s ease;
+    }
+
+    @@keyframes pop {
+        0%
+
+    {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    }
+
+    .btn-create {
+        display: inline-block;
+        background: linear-gradient(45deg, #ff7a5a, #ffb85f);
+        color: white;
+        padding: 14px 22px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: 0.2s;
+        box-shadow: 0px 4px 10px rgba(255, 122, 90, 0.4);
+    }
+
+        .btn-create:hover {
+            transform: scale(1.05);
+            filter: brightness(1.1);
+        }
+
+    table {
+        width: 100%;
+        margin-top: 25px;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: linear-gradient(45deg, #6a5af9, #00c4ff);
+    }
+
+    th {
+        color: white;
+        padding: 14px;
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    td {
+        background: #ffffff;
+        padding: 14px;
+        border-bottom: 3px solid #ffe6cc;
+        font-weight: 500;
+    }
+
+    tr {
+        transition: 0.15s;
+    }
+
+        tr:hover td {
+            background: #fff8e6;
+            transform: scale(1.01);
+        }
+
+    .btn-action {
+        padding: 8px 12px;
+        border-radius: 14px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: white;
+        margin-right: 5px;
+        transition: 0.2s;
+    }
+
+    .edit-btn {
+        background: #6a5af9;
+        box-shadow: 0px 4px 10px rgba(106, 90, 249, 0.4);
+    }
+
+    .details-btn {
+        background: #00c4ff;
+        box-shadow: 0px 4px 10px rgba(0, 196, 255, 0.4);
+    }
+
+    .delete-btn {
+        background: #ff5252;
+        box-shadow: 0px 4px 10px rgba(255, 82, 82, 0.4);
+    }
+
+    .btn-action:hover {
+        transform: scale(1.1);
+        filter: brightness(1.1);
+    }
+</style>
+
+<h1>🎒 Roles del Sistema</h1>
+
+<div class="school-card">
+    <a class="btn-create" asp-action="Create">➕ Crear Nuevo</a>
+
+    <table>
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>@Html.DisplayNameFor(model => model.Apellido1)</th>
+                <th>@Html.DisplayNameFor(model => model.Apellido2)</th>
+                <th>@Html.DisplayNameFor(model => model.Contraseña)</th>
+                <th>@Html.DisplayNameFor(model => model.Correo)</th>
+                <th>@Html.DisplayNameFor(model => model.IdRolNavigation)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Apellido1)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Apellido2)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Contraseña)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Correo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdRolNavigation.IdRol)</td>
+                    <td>
+                        <a class="btn-action edit-btn" asp-action="Edit" asp-route-id="@item.Identificacion">Editar</a>
+                        <a class="btn-action details-btn" asp-action="Details" asp-route-id="@item.Identificacion">Detalles</a>
+                        <a class="btn-action delete-btn" asp-action="Delete" asp-route-id="@item.Identificacion">Eliminar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

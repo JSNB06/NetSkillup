@@ -1,0 +1,92 @@
+﻿@{
+    ViewData["Title"] = "Inicio";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        font-family: "Poppins", sans-serif;
+        padding: 20px;
+    }
+
+    .home-container {
+        text-align: center;
+        margin-top: 60px;
+        animation: fadeIn 0.7s ease-in-out;
+    }
+
+    h1 {
+        font-size: 3rem;
+        color: white;
+        font-weight: 900;
+        text-shadow: 3px 3px 10px rgba(0,0,0,0.25);
+    }
+
+    p.subtitle {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #6a5af9;
+        margin-bottom: 40px;
+    }
+
+    .btn-crud {
+        background: #6a5af9;
+        color: white;
+        padding: 18px 40px;
+        font-size: 1.4rem;
+        font-weight: 700;
+        border: none;
+        border-radius: 25px;
+        text-decoration: none;
+        display: inline-block;
+        box-shadow: 0 6px 18px rgba(106, 90, 249, 0.4);
+        transition: all 0.2s ease-in-out;
+    }
+
+        .btn-crud:hover {
+            transform: scale(1.08);
+            filter: brightness(1.1);
+        }
+
+    .school-card {
+        margin: auto;
+        background: white;
+        border-radius: 25px;
+        padding: 30px;
+        max-width: 700px;
+        border: 4px dashed #ff7a5a;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        margin-top: 40px;
+    }
+
+        .school-card p {
+            font-weight: 600;
+            color: #ff7a5a;
+            font-size: 1.2rem;
+        }
+
+    @@keyframes fadeIn {
+        0% {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<div class="home-container">
+    <h1>🎓 Bienvenido al Sistema de Cursos</h1>
+    <p class="subtitle">Plataforma de habilidades blandas.</p>
+
+    <a asp-controller="RolesSistemas" asp-action="Index" class="btn-crud">
+        👥 Administrar Usuarios
+    </a>
+
+    <div class="school-card">
+        <p>Gestiona usuarios, crea roles, edita información y explora el sistema.</p>
+    </div>
+</div>

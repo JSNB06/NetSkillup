@@ -1,0 +1,148 @@
+﻿@model Proyecto.Models.RolesSistema
+
+@{
+    ViewData["Title"] = "Eliminar";
+}
+
+<style>
+    body {
+        background: linear-gradient(135deg, #ffecd2, #fcb69f);
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.5rem;
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 10px;
+        text-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+    }
+
+    h3 {
+        text-align: center;
+        font-size: 1.6rem;
+        color: #fff9;
+        margin-bottom: 20px;
+    }
+
+    h4 {
+        text-align: center;
+        color: #6a5af9;
+        margin-bottom: 10px;
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    .school-card {
+        background: white;
+        border-radius: 25px;
+        padding: 30px;
+        max-width: 600px;
+        margin: auto;
+        border: 4px dashed #ff7a5a;
+        box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+        animation: pop 0.6s ease;
+    }
+
+    @@keyframes pop {
+        0% {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    dt {
+        font-weight: 700;
+        color: #6a5af9;
+        margin-top: 10px;
+        font-size: 1.1rem;
+    }
+
+    dd {
+        background: #fff3e0;
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-left: 6px solid #ffb85f;
+        font-size: 1rem;
+        font-weight: 600;
+        color: #444;
+    }
+
+    .btn-delete {
+        background: #ff5252;
+        color: white;
+        border: none;
+        padding: 12px 22px;
+        width: 100%;
+        font-size: 1.1rem;
+        border-radius: 18px;
+        font-weight: 700;
+        box-shadow: 0px 5px 12px rgba(255, 82, 82, 0.4);
+        transition: 0.2s;
+        margin-top: 15px;
+    }
+
+        .btn-delete:hover {
+            transform: scale(1.06);
+            filter: brightness(1.1);
+        }
+
+    .back-link {
+        display: block;
+        margin-top: 15px;
+        text-align: center;
+        font-weight: 700;
+        color: white;
+        font-size: 1.1rem;
+        text-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+        text-decoration: none;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<h1>🧨 Eliminar Registro</h1>
+<h3>¿Estás seguro de que deseas eliminar este registro?</h3>
+
+<div class="school-card">
+    <h4>Información del Rol</h4>
+    <hr />
+
+    <dl class="row">
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Nombre)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Nombre)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Apellido1)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Apellido1)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Apellido2)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Apellido2)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Contraseña)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Contraseña)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.Correo)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.Correo)</dd>
+
+        <dt class="col-sm-3">@Html.DisplayNameFor(model => model.IdRolNavigation)</dt>
+        <dd class="col-sm-9">@Html.DisplayFor(model => model.IdRolNavigation.IdRol)</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Identificacion" />
+        <input type="submit" value="Eliminar" class="btn-delete" />
+    </form>
+</div>
+
+<a asp-action="Index" class="back-link">⬅ Volver al listado</a>
