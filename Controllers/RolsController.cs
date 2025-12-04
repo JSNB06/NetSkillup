@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,24 +9,22 @@ using Proyecto.Models;
 
 namespace Proyecto.Controllers
 {
-    [Authorize]
-    public class RolesSistemasController : Controller
+    public class RolsController : Controller
     {
         private readonly NetskillupContext _context;
 
-        public RolesSistemasController(NetskillupContext context)
+        public RolsController(NetskillupContext context)
         {
             _context = context;
         }
 
-        // GET: RolesSistemas
+        // GET: Rols
         public async Task<IActionResult> Index()
         {
-            var netskillupContext = _context.RolesSistemas.Include(r => r.IdRolNavigation);
-            return View(await netskillupContext.ToListAsync());
+            return View(await _context.Rols.ToListAsync());
         }
 
-        // GET: RolesSistemas/Details/5
+        // GET: Rols/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,42 +32,39 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var rolesSistema = await _context.RolesSistemas
-                .Include(r => r.IdRolNavigation)
-                .FirstOrDefaultAsync(m => m.Identificacion == id);
-            if (rolesSistema == null)
+            var rol = await _context.Rols
+                .FirstOrDefaultAsync(m => m.IdRol == id);
+            if (rol == null)
             {
                 return NotFound();
             }
 
-            return View(rolesSistema);
+            return View(rol);
         }
 
-        // GET: RolesSistemas/Create
+        // GET: Rols/Create
         public IActionResult Create()
         {
-            ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "IdRol");
             return View();
         }
 
-        // POST: RolesSistemas/Create
+        // POST: Rols/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Identificacion,Nombre,Apellido1,Apellido2,Contraseña,IdRol,Correo")] RolesSistema rolesSistema)
+        public async Task<IActionResult> Create([Bind("IdRol,Descripcion")] Rol rol)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(rolesSistema);
+                _context.Add(rol);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "IdRol", rolesSistema.IdRol);
-            return View(rolesSistema);
+            return View(rol);
         }
 
-        // GET: RolesSistemas/Edit/5
+        // GET: Rols/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -78,23 +72,22 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var rolesSistema = await _context.RolesSistemas.FindAsync(id);
-            if (rolesSistema == null)
+            var rol = await _context.Rols.FindAsync(id);
+            if (rol == null)
             {
                 return NotFound();
             }
-            ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "IdRol", rolesSistema.IdRol);
-            return View(rolesSistema);
+            return View(rol);
         }
 
-        // POST: RolesSistemas/Edit/5
+        // POST: Rols/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Identificacion,Nombre,Apellido1,Apellido2,Contraseña,IdRol,Correo")] RolesSistema rolesSistema)
+        public async Task<IActionResult> Edit(int id, [Bind("IdRol,Descripcion")] Rol rol)
         {
-            if (id != rolesSistema.Identificacion)
+            if (id != rol.IdRol)
             {
                 return NotFound();
             }
@@ -103,12 +96,12 @@ namespace Proyecto.Controllers
             {
                 try
                 {
-                    _context.Update(rolesSistema);
+                    _context.Update(rol);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RolesSistemaExists(rolesSistema.Identificacion))
+                    if (!RolExists(rol.IdRol))
                     {
                         return NotFound();
                     }
@@ -119,11 +112,10 @@ namespace Proyecto.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdRol"] = new SelectList(_context.Rols, "IdRol", "IdRol", rolesSistema.IdRol);
-            return View(rolesSistema);
+            return View(rol);
         }
 
-        // GET: RolesSistemas/Delete/5
+        // GET: Rols/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -131,35 +123,34 @@ namespace Proyecto.Controllers
                 return NotFound();
             }
 
-            var rolesSistema = await _context.RolesSistemas
-                .Include(r => r.IdRolNavigation)
-                .FirstOrDefaultAsync(m => m.Identificacion == id);
-            if (rolesSistema == null)
+            var rol = await _context.Rols
+                .FirstOrDefaultAsync(m => m.IdRol == id);
+            if (rol == null)
             {
                 return NotFound();
             }
 
-            return View(rolesSistema);
+            return View(rol);
         }
 
-        // POST: RolesSistemas/Delete/5
+        // POST: Rols/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var rolesSistema = await _context.RolesSistemas.FindAsync(id);
-            if (rolesSistema != null)
+            var rol = await _context.Rols.FindAsync(id);
+            if (rol != null)
             {
-                _context.RolesSistemas.Remove(rolesSistema);
+                _context.Rols.Remove(rol);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool RolesSistemaExists(int id)
+        private bool RolExists(int id)
         {
-            return _context.RolesSistemas.Any(e => e.Identificacion == id);
+            return _context.Rols.Any(e => e.IdRol == id);
         }
     }
 }
